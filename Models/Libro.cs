@@ -7,6 +7,8 @@ namespace Sistema_Gestion_Biblioteca.Models;
 
 public class Libro : Publicacion
 {
+    public string Titulo { get; set; }
+    public int AnoPublicacion { get; set;}
     public string Autor { get; set; }
     public int ISBN { get; set; }
     public string Genero { get; set; }
@@ -23,9 +25,9 @@ public class Libro : Publicacion
         Precio = precio;
     }
 
-    public void Descripcion()
+    public string Descripcion()
     {
-        Console.WriteLine($"El libro tiene un ISBN: {ISBN}, el autor es: {Autor}, el genero es: {Genero} y el precio es: {Precio}");
+        return $"El libro tiene un ISBN: {ISBN}, el autor es: {Autor}, el genero es: {Genero} y el precio es: {Precio}";
 
     }
 

@@ -25,26 +25,56 @@ public class Biblioteca
         return descuento;
     }
 
-    public string Agregar()
+    public string Agregar(Libro libro)
     {
-        Libros.Add(new Libro("el señor de los anillos", 2000, "Andres Vargas", 007, "Ciencia Ficción", 85000));
+        Libros.Add(libro);
         return "Libro agregado exitosamente";
     }
 
-    public string Eliminar()
+    public string Eliminar(Libro libro)
     {
-        Libros.RemoveAt(Libros.Count - 1);
+        Libros.Remove(libro);
         return "Libro eliminado exitosamente";
     }
 
-    public string Buscar(string titulo)
+    public string BuscarLibroAutor(string autor)
     {
-        var libro = Libros.FirstOrDefault(l => l.Titulo == titulo);
-        if (libro != null)
+        var librosAutor = Libros.Where(l => l.Autor == autor).ToList();
+        if (librosAutor.Count > 0)
         {
-            return $"Libro encontrado: {libro.Titulo}";
+            return $"Libros del autor {autor}: {string.Join(", ", librosAutor.Select(l => l.Titulo))}";
         }
-        return "Libro no encontrado";
+        return "No hay libros del autor";
+    }
+
+    public string BuscarLibroGenero(string genero)
+    {
+        var librosGenero = Libros.Where(l => l.Genero == genero).ToList();
+        if (librosGenero.Count > 0)
+        {
+            return $"Libros del genero {genero}: {string.Join(", ", librosGenero.Select(l => l.Titulo))}";
+        }
+        return "No hay libros del genero";
+    }
+
+    public string BuscarLibroAno(string ano)
+    {
+        var librosAno = Libros.Where(l => l.AnoPublicacion.ToString() == ano).ToList();
+        if (librosAno.Count > 0)
+        {
+            return $"Libros publicados en {ano}: {string.Join(", ", librosAno.Select(l => l.Titulo))}";
+        }
+        return "No hay libros publicados en este año";
+    }
+
+    public string OrdenarPorAno(string ano)
+    {
+        var librosOrdenados = Libros.OrderBy(l => l.AnoPublicacion).ToList();
+        if (librosOrdenados.Count > 0)
+        {
+            return $"Libros ordenados por año: {string.Join(", ", librosOrdenados.Select(l => l.Titulo))}";
+        }
+        return "No hay libros en la biblioteca";
     }
 
     public string Reciente()
